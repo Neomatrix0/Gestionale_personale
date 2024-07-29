@@ -37,9 +37,7 @@ class Program
             "Modifica dipendente","Rimuovi dipendente","Tasso di assenteismo","Valutazione performance","Ordina stipendi","Rapporto stipendio fatturato","Esci",
         }));
 
-
             // scelta del tipo di azione da svolgere
-
 
             switch (opzione)
             {
@@ -101,7 +99,7 @@ class Program
             try
             {
 
-                Console.WriteLine("Inserisci nome, cognome, data di nascita DD/MM/YYYY,mansione, stipendio,voto performance da 1 a 100 ,giorni di assenze,email,separate da virgola");
+                Console.WriteLine("Inserisci nome, cognome, data di nascita DD/MM/YYYY,mansione, stipendio,voto performance da 1 a 100 ,giorni di assenze,email,separate da virgola\n");
 
                 // accetta l'input dei dati da console
                 string? inserimento = Console.ReadLine();
@@ -213,26 +211,10 @@ class Program
     {
         try
         {
-            Console.WriteLine("\nInserisci nome e cognome del dipendente  separati da virgola");
-            var inserisciNome = Console.ReadLine();
-
-            // permette l'inserimento di molteplici input separati dalla virgola quindi permette un array di stringhe con nome cognome
-            var nomi = inserisciNome.Split(',');
-
-            // il dipendente deve essere cercato inserendo nome,cognome se vengono inseriti più valori viene gestito l'errore
-
-
-            if (nomi.Length != 2)
-            {
-                throw new FormatException("L'input deve contenere esattamente due valori separati da virgola: nome e cognome.");
-
-            }
-
-            // creato variabili per associarvi il valore di nome e cognome relativi all'array nomi
-
-            string nome = nomi[0].Trim();
-            string cognome = nomi[1].Trim();
-
+            Console.Clear();
+          
+            GetNomeCognome(out string nome, out string cognome);
+            
             // nome e cognome di ogni dipendente diventerenno il rispettivo nome dei file json 
             string filePath = Path.Combine(directoryPath, $"{nome}_{cognome}.json");
 
@@ -264,23 +246,7 @@ class Program
 
         try
         {
-            Console.WriteLine("\nInserisci nome e cognome del dipendente che vuoi modificare separati da virgola");
-
-            var inserisciNome = Console.ReadLine();
-            var nomi = inserisciNome.Split(',');
-
-            // il dipendente va cercato solo inserendo nome,cognome
-
-            if (nomi.Length != 2)
-            {
-                Console.WriteLine("Nomi non validi.Inserire nome,cognome separati da virgola");
-                return;
-            }
-
-            // Trim() rimuove gli spazi vuoti dal nome e cognome
-
-            string nome = nomi[0].Trim();
-            string cognome = nomi[1].Trim();
+          GetNomeCognome(out string nome, out string cognome);
             string filePath = Path.Combine(directoryPath, $"{nome}_{cognome}.json");
 
             if (File.Exists(filePath))
@@ -405,18 +371,7 @@ class Program
     static void RimuoviDipendente()
     {
 
-        Console.WriteLine("Inserisci nome e cognome del dipendente che vuoi rimuovere separati da virgola");
-        var inserisciNome = Console.ReadLine();
-        var nomi = inserisciNome.Split(',');
-
-        if (nomi.Length != 2)
-        {
-            Console.WriteLine("Nomi non validi.Inserire nome,cognome separati da virgola");
-            return;
-        }
-
-        string nome = nomi[0].Trim();
-        string cognome = nomi[1].Trim();
+    GetNomeCognome(out string nome, out string cognome);
         string filePath = Path.Combine(directoryPath, $"{nome}_{cognome}.json");
 
         try
@@ -438,7 +393,6 @@ class Program
             Console.WriteLine($"CODICE ERRORE: {e.HResult}");
         }
     }
-
 
 
     //metodo per ordinare gli stipendi dal più alto al più basso e vedere alcuni  dati del dipendente
@@ -479,7 +433,6 @@ class Program
     }
 
    
-
     // metodo che calcola il tasso di assenteismo su un totale di 250 giorni lavorativi l'anno
     static void TassoDiAssenteismo()
     {
@@ -643,8 +596,6 @@ class Program
             File.WriteAllText(fileTxt, fatturato.ToString());
 
 
-
-
         }
         else
         {
@@ -732,6 +683,7 @@ class Program
         return table;
     }
 
+// metodo per creare le colonne delle tabelle con Spectre console
     static Table CreaColonne(string[]colonne){
         var table = new Table().Border(TableBorder.Square);
 
@@ -741,7 +693,7 @@ class Program
         }
         return table;
     }
-
+//metodo per inserire l'input da console nome,cognome
     static void GetNomeCognome(out string nome, out string cognome)
 {
     while (true)
@@ -762,7 +714,6 @@ class Program
         }
     }
 }
-
 
 
 }
