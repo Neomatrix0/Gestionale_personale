@@ -213,7 +213,7 @@ class Program
     {
         try
         {
-            Console.WriteLine("\nInserisci nome e cognome del dipendente che vuoi cercare separati da virgola");
+            Console.WriteLine("\nInserisci nome e cognome del dipendente  separati da virgola");
             var inserisciNome = Console.ReadLine();
 
             // permette l'inserimento di molteplici input separati dalla virgola quindi permette un array di stringhe con nome cognome
@@ -478,29 +478,9 @@ class Program
         AnsiConsole.Write(table);
     }
 
+   
 
-
-
-    // metodo per leggere i dati dal json e stamparli
-    static void StampaDati(string filePath)
-    {
-        // legge il contenuto del file json
-        string jsonRead = File.ReadAllText(filePath);
-        // deserializza la stringa JSON in un oggetto di tipo dynamic
-        var dipendente = JsonConvert.DeserializeObject<dynamic>(jsonRead);
-        Console.WriteLine($"\nNome: {dipendente.Nome}");
-        Console.WriteLine($"Cognome: {dipendente.Cognome}");
-        Console.WriteLine($"Data di nascita: {dipendente.DataDiNascita}");
-        Console.WriteLine($"Mansione: {dipendente.Mansione}");
-        Console.WriteLine($"Stipendio: {dipendente.Stipendio}");
-        Console.WriteLine($"Performance: {dipendente.Performance}");
-        Console.WriteLine($"Giorni di assenza: {dipendente.Assenze}");
-        Console.WriteLine($"Mail aziendale: {dipendente.Mail}");
-
-
-    }
-
-    // meotodo che calcola il tasso di assenteismo su un totale di 250 giorni lavorativi l'anno
+    // metodo che calcola il tasso di assenteismo su un totale di 250 giorni lavorativi l'anno
     static void TassoDiAssenteismo()
     {
         Console.WriteLine("\nDi seguito l'elenco con il tasso di assenteismo per ogni dipendente su 250 giorni lavorativi equivalente ad 1 anno\n");
@@ -607,9 +587,7 @@ class Program
         {
             table.AddRow($"{impiegato.Nome} {impiegato.Cognome}", $"{impiegato.Performance}");
 
-
         }
-
 
         foreach (var impiegato in squadra2)
         {
@@ -618,7 +596,6 @@ class Program
 
         }
 
-
         Console.WriteLine("\nGruppo con le performance più alte:\n");
 
         AnsiConsole.Write(table);
@@ -626,7 +603,6 @@ class Program
         AnsiConsole.Write(table2);
 
         // ordina i valori
-
 
         squadra2.Sort((x, y) => x.Performance.CompareTo(y.Performance));
 
@@ -740,8 +716,6 @@ class Program
         var table = new Table();
         table.Border(TableBorder.Square);
 
-
-    
         table.AddColumn("Nome");
         table.AddColumn("Cognome");
         table.AddColumn("Data di nascita");
@@ -767,6 +741,28 @@ class Program
         }
         return table;
     }
+
+    static void GetNomeCognome(out string nome, out string cognome)
+{
+    while (true)
+    {
+        Console.WriteLine("\nInserisci nome e cognome del dipendente separati da virgola");
+        var inserisciNome = Console.ReadLine();
+        var nomi = inserisciNome.Split(',');
+
+        if (nomi.Length == 2)
+        {
+            nome = nomi[0].Trim();
+            cognome = nomi[1].Trim();
+            return;
+        }
+        else
+        {
+            Console.WriteLine("L'input deve contenere esattamente due valori separati da virgola: nome e cognome.");
+        }
+    }
+}
+
 
 
 }
