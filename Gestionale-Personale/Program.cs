@@ -130,7 +130,8 @@ class Program
                     Stipendio = Convert.ToDecimal(dati[4].Trim()),
                     Performance = Convert.ToInt32(dati[5].Trim()),
                     Assenze = Convert.ToInt32(dati[6].Trim()),
-                    Mail = dati[7].Trim()
+                    Mail = dati[7].Trim(),
+                    TimeStamp = DateTime.Now.ToString("yyyy-MM-dd")
                 };
 
                 // serializza l'oggetto in una stringa Json e lo indenta per renderlo più leggibile
@@ -138,7 +139,7 @@ class Program
                 string jsonString = JsonConvert.SerializeObject(dipendente, Formatting.Indented);
 
                 // Path.Combine concatena il path della cartella dipendenti al path dei file json di ogni dipendente
-                string filePath = Path.Combine(directoryPath, $"{dipendente.Nome}_{dipendente.Cognome}.json");
+                string filePath = Path.Combine(directoryPath, $"{dipendente.Nome}_{dipendente.Cognome}_{dipendente.TimeStamp}.json");
 
                 //scrive il file
 
@@ -704,4 +705,3 @@ class Program
 
 
 }
-
