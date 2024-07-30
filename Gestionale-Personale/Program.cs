@@ -212,6 +212,7 @@ class Program
     try
     {
         Console.Clear();
+        // cerca i file JSON corrispondenti al nome e cognome forniti dall'utente e ne ritorna il path 
           string filePath = RicercaJson(out string nome, out string cognome);
 
         if (filePath != null)
@@ -635,7 +636,7 @@ static string RicercaJson(out string nome, out string cognome)
         return null;
     }
 
-    // Estrai i nomi idonei dal path
+    // Select(Path.GetFileName) estrae i nomi di ogni file json dal path e poi li converte in una lista per poi usarli nel menu
     var fileNames = matchingFiles.Select(Path.GetFileName).ToList();
 
     // Menu di scelta del file per l'utente
@@ -643,9 +644,9 @@ static string RicercaJson(out string nome, out string cognome)
         new SelectionPrompt<string>()
         .Title("Seleziona il file del dipendente:")
         .PageSize(10)
-        .AddChoices(fileNames));
+        .AddChoices(fileNames)); // contiene i nomi dei file json trovati nella directory che corrispondono al pattern di ricerca.
 
-    // Ritorna Path completo del file scelto
+    // Ritorna path completo del file scelto.Questo percorso può poi essere utilizzato dal programma per leggere, modificare o cancellare il file.
     return Path.Combine(directoryPath, selectedFile);
 }
 
@@ -653,6 +654,8 @@ static string RicercaJson(out string nome, out string cognome)
 //metodo per inserire l'input da console nome,cognome
     static void GetNomeCognome(out string nome, out string cognome)
 {
+    // while utilizzato per ripetere la richiesta di input fino a quando l'utente inserisce dati validi.
+
     while (true)
     {
         Console.WriteLine("\nInserisci nome e cognome del dipendente separati da virgola");
