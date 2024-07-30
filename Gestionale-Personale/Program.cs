@@ -226,36 +226,7 @@ class Program
         Console.WriteLine($"CODICE ERRORE: {e.HResult}");
     }
 }
-        /*GetNomeCognome(out string nome, out string cognome);
-
-        string searchPattern = $"{nome}_{cognome}_*.json";
-        string[] matchingFiles = Directory.GetFiles(directoryPath, searchPattern);
-
-        if (matchingFiles.Length > 0)
-        {
-            var filePaths = matchingFiles.Select(filePath => Path.GetFileName(filePath)).ToList();
-            var selectedFile = AnsiConsole.Prompt(
-                new SelectionPrompt<string>()
-                .Title("Seleziona il file del dipendente:")
-                .PageSize(10)
-                .AddChoices(filePaths));
-
-            var table = CreaTabella(Path.Combine(directoryPath, selectedFile));
-            AnsiConsole.Write(table);
-        }
-        else
-        {
-            Console.WriteLine("Dipendente non trovato");
-        }
-    } 
-    catch (Exception e)
-    {
-        Console.WriteLine($"Errore non trattato: {e.Message}");
-        Console.WriteLine($"CODICE ERRORE: {e.HResult}");
-    }
-}*/
-
-
+    
     //cerca dipendente per nome,cognome e poi modifica le caratteristiche del dipendente a scelta
 
    static void ModificaDipendente()
@@ -692,7 +663,5 @@ static void RimuoviDipendente()
         }
     }
 }
-
-
 
     }
