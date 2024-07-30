@@ -617,7 +617,7 @@ static void RimuoviDipendente()
         return table;
     }
 
-    static string RicercaJson(out string nome, out string cognome)
+/*    static string RicercaJson(out string nome, out string cognome)
 {
     GetNomeCognome(out nome, out cognome);
 
@@ -640,7 +640,40 @@ static void RimuoviDipendente()
         Console.WriteLine("Dipendente non trovato");
         return null;
     }
+} */
+
+static string RicercaJson(out string nome, out string cognome)
+{
+    // Prompt the user to enter the name and surname of the employee
+    GetNomeCognome(out nome, out cognome);
+
+    // Create the search pattern for JSON files
+    string searchPattern = $"{nome}_{cognome}_*.json";
+
+    // Get matching files from the directory
+    var matchingFiles = Directory.GetFiles(directoryPath, searchPattern);
+
+    // Check if any files match the pattern
+    if (matchingFiles.Length == 0)
+    {
+        Console.WriteLine("Dipendente non trovato");
+        return null;
+    }
+
+    // Extract file names from the matching file paths
+    var fileNames = matchingFiles.Select(Path.GetFileName).ToList();
+
+    // Prompt the user to select a file from the matching files
+    var selectedFile = AnsiConsole.Prompt(
+        new SelectionPrompt<string>()
+        .Title("Seleziona il file del dipendente:")
+        .PageSize(10)
+        .AddChoices(fileNames));
+
+    // Return the full path of the selected file
+    return Path.Combine(directoryPath, selectedFile);
 }
+
 
 //metodo per inserire l'input da console nome,cognome
     static void GetNomeCognome(out string nome, out string cognome)
