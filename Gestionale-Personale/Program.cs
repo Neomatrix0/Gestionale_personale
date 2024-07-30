@@ -6,7 +6,6 @@ class Program
 
     // crea cartella dipendenti dove verranno messi i file json per ogni dipendente
     static string directoryPath = @"dipendenti/";
-
     static void Main(string[] args)
 
     {
@@ -664,21 +663,9 @@ class Program
     {
          var dipendente = LeggiJson(filePath);
 
-        var table = new Table();
-        table.Border(TableBorder.Square);
-
-        table.AddColumn("Nome");
-        table.AddColumn("Cognome");
-        table.AddColumn("Data di nascita");
-        table.AddColumn("Mansione");
-        table.AddColumn("Stipendio");
-        table.AddColumn("Performance");
-        table.AddColumn("Giorni di assenza");
-        table.AddColumn("Email aziendale");
-
+        var table = CreaColonne(new string[]{"Nome","Cognome","Data di nascita","Mansione","Stipendio annuale","Performance","Giorni di assenza","Email aziendale"});
 
         table.AddRow($"{dipendente.Nome}", $"{dipendente.Cognome}", $"{dipendente.DataDiNascita}", $"{dipendente.Mansione}", $"{dipendente.Stipendio}", $"{dipendente.Performance}", $"{dipendente.Assenze}", $"{dipendente.Mail}");
-
 
         return table;
     }
