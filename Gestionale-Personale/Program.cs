@@ -350,9 +350,7 @@ static void RimuoviDipendente()
             }
         }
 
-
         var table = CreaColonne(new string[]{"Dipendente","Stipendio","Performance"});
-
 
         Console.WriteLine("\nDipendenti ordinati per stipendio in ordine discendente:\n");
 
@@ -617,60 +615,37 @@ static void RimuoviDipendente()
         return table;
     }
 
-/*    static string RicercaJson(out string nome, out string cognome)
-{
-    GetNomeCognome(out nome, out cognome);
 
-    string searchPattern = $"{nome}_{cognome}_*.json";
-    string[] matchingFiles = Directory.GetFiles(directoryPath, searchPattern);
-
-    if (matchingFiles.Length > 0)
-    {
-        var filePaths = matchingFiles.Select(filePath => Path.GetFileName(filePath)).ToList();
-        var selectedFile = AnsiConsole.Prompt(
-            new SelectionPrompt<string>()
-            .Title("Seleziona il file del dipendente:")
-            .PageSize(10)
-            .AddChoices(filePaths));
-
-        return Path.Combine(directoryPath, selectedFile);
-    }
-    else
-    {
-        Console.WriteLine("Dipendente non trovato");
-        return null;
-    }
-} */
 
 static string RicercaJson(out string nome, out string cognome)
 {
-    // Prompt the user to enter the name and surname of the employee
+    // Prompt nome cognome
     GetNomeCognome(out nome, out cognome);
 
-    // Create the search pattern for JSON files
+    // pattern di ricerca per il file json
     string searchPattern = $"{nome}_{cognome}_*.json";
 
-    // Get matching files from the directory
+    // prende files corrispondenti dalla directory
     var matchingFiles = Directory.GetFiles(directoryPath, searchPattern);
 
-    // Check if any files match the pattern
+    // Controlla corrispondenza pattern del file
     if (matchingFiles.Length == 0)
     {
         Console.WriteLine("Dipendente non trovato");
         return null;
     }
 
-    // Extract file names from the matching file paths
+    // Estrai i nomi idonei dal path
     var fileNames = matchingFiles.Select(Path.GetFileName).ToList();
 
-    // Prompt the user to select a file from the matching files
+    // Menu di scelta del file per l'utente
     var selectedFile = AnsiConsole.Prompt(
         new SelectionPrompt<string>()
         .Title("Seleziona il file del dipendente:")
         .PageSize(10)
         .AddChoices(fileNames));
 
-    // Return the full path of the selected file
+    // Ritorna Path completo del file scelto
     return Path.Combine(directoryPath, selectedFile);
 }
 
