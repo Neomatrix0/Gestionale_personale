@@ -131,7 +131,7 @@ class Program
                     Performance = Convert.ToInt32(dati[5].Trim()),
                     Assenze = Convert.ToInt32(dati[6].Trim()),
                     Mail = dati[7].Trim(),
-                    TimeStamp = DateTime.Now.ToString("yyyy-MM-dd")
+                    TimeStamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss")
                 };
 
                 // serializza l'oggetto in una stringa Json e lo indenta per renderlo più leggibile
@@ -208,36 +208,39 @@ class Program
 
     // metodo per cercare il dipendente inserendo nome,cognome
     static void CercaDipendente()
+{
+    try
     {
-        try
+        Console.Clear();
+        GetNomeCognome(out string nome, out string cognome);
+
+        string searchPattern = $"{nome}_{cognome}_*.json";
+        string[] matchingFiles = Directory.GetFiles(directoryPath, searchPattern);
+
+        if (matchingFiles.Length > 0)
         {
-            Console.Clear();
-          
-            GetNomeCognome(out string nome, out string cognome);
-            
-            // nome e cognome di ogni dipendente diventerenno il rispettivo nome dei file json 
-            string filePath = Path.Combine(directoryPath, $"{nome}_{cognome}.json");
+            var filePaths = matchingFiles.Select(filePath => Path.GetFileName(filePath)).ToList();
+            var selectedFile = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                .Title("Seleziona il file del dipendente:")
+                .PageSize(10)
+                .AddChoices(filePaths));
 
-            // verifica se un file json esiste
-
-            if (File.Exists(filePath))
-            {
-
-                // StampaDati(filePath);
-                var table = CreaTabella(filePath);
-                AnsiConsole.Write(table);
-            }
-            else
-            {
-                Console.WriteLine("Dipendente non trovato");
-            }
+            var table = CreaTabella(Path.Combine(directoryPath, selectedFile));
+            AnsiConsole.Write(table);
         }
-        catch (Exception e)
+        else
         {
-            Console.WriteLine($"Errore non trattato: {e.Message}");
-            Console.WriteLine($"CODICE ERRORE: {e.HResult}");
+            Console.WriteLine("Dipendente non trovato");
         }
     }
+    catch (Exception e)
+    {
+        Console.WriteLine($"Errore non trattato: {e.Message}");
+        Console.WriteLine($"CODICE ERRORE: {e.HResult}");
+    }
+}
+
 
     //cerca dipendente per nome,cognome e poi modifica le caratteristiche del dipendente a scelta
 

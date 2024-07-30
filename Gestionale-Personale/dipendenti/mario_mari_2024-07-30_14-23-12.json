@@ -1,0 +1,11 @@
+{
+  "Nome": "mario",
+  "Cognome": "mari",
+  "DataDiNascita": "20/10/1990",
+  "Mansione": "impiegato",
+  "Stipendio": 10000.0,
+  "Performance": 20,
+  "Assenze": 40,
+  "Mail": "mario@gmail.com",
+  "TimeStamp": "2024-07-30_14-23-12"
+}
