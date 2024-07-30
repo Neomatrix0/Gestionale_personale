@@ -4,7 +4,8 @@
   "DataDiNascita": "20/07/2000",
   "Mansione": "impiegato",
   "Stipendio": 20000.0,
-  "Performance": 80,
+  "Performance": 0,
   "Assenze": 10,
-  "Mail": "francesco.farina@gmail.com"
+  "Mail": "francesco.farina@gmail.com",
+  "TimeStamp": "2024-07-30_14-23-54"
 }
